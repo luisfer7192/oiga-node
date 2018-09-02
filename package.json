@@ -4,7 +4,7 @@
     "description": "Api rest full in node to oiga technologies",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon server/server.js",
+        "start": "node server/server.js",
         "test": "mocha"
     },
     "author": "Luis Fernando Salazar Buitrago",
