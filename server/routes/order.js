@@ -15,9 +15,6 @@ app.get('/my_orders', checkToken, (req, res) => {
     let start = req.query.start || 0;
     start = Number(start);
 
-    // get the status of the orders or use the default value (in process)
-    let status = req.query.status || 1;
-
     Order.find({ user: req.user._id })
         .skip(start)
         .limit(10)
@@ -34,7 +31,7 @@ app.get('/my_orders', checkToken, (req, res) => {
                 ok: true,
                 orders
             });
-        })
+        });
 });
 
 
@@ -65,7 +62,7 @@ app.get('/orders', [checkToken, checkAdminRole], (req, res) => {
                 ok: true,
                 orders
             });
-        })
+        });
 });
 
 // ===========================
@@ -112,14 +109,14 @@ app.post('/orders', checkToken, async (req, res) => {
     const { products } = body;
     // get the items
     let items = await Promise.all(products.map(async data => {
-      const product = await Product.findById(data.id);
-      return {
-        name: product.name,
-        price: product.price,
-        qty: data.qty,
-        product: data.id
-      }
-    }))
+        const product = await Product.findById(data.id);
+        return {
+            name: product.name,
+            price: product.price,
+            qty: data.qty,
+            product: data.id
+        };
+    }));
 
     // set the total
     const total = items.reduce((a, b) => (a.price * a.qty) + (b.price * b.qty));
@@ -175,14 +172,14 @@ app.put('/orders/:id', [checkToken, checkAdminRole], (req, res) => {
 
         // get the items
         let items = await Promise.all(products.map(async data => {
-          const product = await Product.findById(data.id);
-          return {
-            name: product.name,
-            price: product.price,
-            qty: data.qty,
-            product: data.id
-          }
-        }))
+            const product = await Product.findById(data.id);
+            return {
+                name: product.name,
+                price: product.price,
+                qty: data.qty,
+                product: data.id
+            };
+        }));
 
         // set the total
         const total = items.reduce((a, b) => (a.price * a.qty) + (b.price * b.qty));

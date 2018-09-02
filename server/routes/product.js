@@ -31,7 +31,7 @@ app.get('/products', checkToken, (req, res) => {
                 ok: true,
                 products
             });
-        })
+        });
 });
 
 // ===========================
@@ -90,8 +90,8 @@ app.get('/products/buscar/:termino', checkToken, (req, res) => {
             res.json({
                 ok: true,
                 products
-            })
-        })
+            });
+        });
 });
 
 
@@ -215,8 +215,8 @@ app.delete('/products/:id', [checkToken, checkAdminRole], (req, res) => {
                 product: productBorrado,
                 mensaje: 'Product borrado'
             });
-        })
-    })
+        });
+    });
 });
 
 module.exports = app;

@@ -49,7 +49,7 @@ app.post('/user', /*[checkToken, checkAdminRole],*/ function(req, res) {
         return res.status(400).json({
             ok: false,
             err: {
-              'message': 'the following fields are required: name, email, password'
+                'message': 'the following fields are required: name, email, password'
             }
         });
     }
@@ -96,7 +96,7 @@ app.put('/user/:id', [checkToken, checkAdminRole], function(req, res) {
             ok: true,
             user: userDB
         });
-    })
+    });
 });
 
 // ===========================
@@ -115,7 +115,7 @@ app.delete('/user/:id', [checkToken, checkAdminRole], function(req, res) {
                 ok: false,
                 err
             });
-        };
+        }
 
         if (!userDeleted) {
             return res.status(400).json({

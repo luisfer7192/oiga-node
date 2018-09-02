@@ -25,7 +25,7 @@ app.get('/category', checkToken, (req, res) => {
                 ok: true,
                 categories
             });
-        })
+        });
 });
 
 // ============================
