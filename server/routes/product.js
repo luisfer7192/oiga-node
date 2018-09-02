@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { checkToken } = require('../middlewares/authentication');
+const { checkToken, checkAdminRole } = require('../middlewares/authentication');
 
 
 let app = express();
@@ -8,7 +8,7 @@ let Product = require('../models/product');
 
 
 // ===========================
-//  get all products
+//  get all products ROLE: USER_ROLE, ADMIN_ROLE
 // ===========================
 app.get('/products', checkToken, (req, res) => {
     let start = req.query.start || 0;
@@ -35,9 +35,9 @@ app.get('/products', checkToken, (req, res) => {
 });
 
 // ===========================
-//  Get product by id
+//  Get product by id ROLE: USER_ROLE, ADMIN_ROLE
 // ===========================
-app.get('/products/:id', (req, res) => {
+app.get('/products/:id', checkToken, (req, res) => {
     let id = req.params.id;
 
     Product.findById(id)
@@ -70,7 +70,7 @@ app.get('/products/:id', (req, res) => {
 });
 
 // ===========================
-//  search products
+//  search products ROLE: USER_ROLE, ADMIN_ROLE
 // ===========================
 app.get('/products/buscar/:termino', checkToken, (req, res) => {
     let termino = req.params.termino;
@@ -97,9 +97,9 @@ app.get('/products/buscar/:termino', checkToken, (req, res) => {
 
 
 // ===========================
-//  create product
+//  create product ROLE: ADMIN_ROLE
 // ===========================
-app.post('/products', checkToken, (req, res) => {
+app.post('/products', [checkToken, checkAdminRole], (req, res) => {
     let body = req.body;
 
     let product = new Product({
@@ -130,9 +130,9 @@ app.post('/products', checkToken, (req, res) => {
 });
 
 // ===========================
-//  update product
+//  update product ROLE: ADMIN_ROLE
 // ===========================
-app.put('/products/:id', checkToken, (req, res) => {
+app.put('/products/:id', [checkToken, checkAdminRole], (req, res) => {
     let id = req.params.id;
     let body = req.body;
 
@@ -177,9 +177,9 @@ app.put('/products/:id', checkToken, (req, res) => {
 });
 
 // ===========================
-//  Delete product
+//  Delete product ROLE: ADMIN_ROLE
 // ===========================
-app.delete('/products/:id', checkToken, (req, res) => {
+app.delete('/products/:id', [checkToken, checkAdminRole], (req, res) => {
     let id = req.params.id;
 
     Product.findById(id, (err, productDB) => {

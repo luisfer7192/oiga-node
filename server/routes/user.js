@@ -8,7 +8,9 @@ const { checkToken, checkAdminRole } = require('../middlewares/authentication');
 
 const app = express();
 
-
+// ===========================
+//  Get users
+// ===========================
 app.get('/user', checkToken, (req, res) => {
     let start = req.query.start || 0;
     start = Number(start);
@@ -37,6 +39,9 @@ app.get('/user', checkToken, (req, res) => {
         });
 });
 
+// ===========================
+//  Create users (disabled token validations because it have to create the admin role manualy with postman or method you want)
+// ===========================
 app.post('/user', /*[checkToken, checkAdminRole],*/ function(req, res) {
     let body = req.body;
 
@@ -72,6 +77,9 @@ app.post('/user', /*[checkToken, checkAdminRole],*/ function(req, res) {
     });
 });
 
+// ===========================
+//  Get user by id
+// ===========================
 app.put('/user/:id', [checkToken, checkAdminRole], function(req, res) {
     let id = req.params.id;
     let body = _.pick(req.body, ['name', 'email', 'img', 'role', 'status']);
@@ -91,15 +99,17 @@ app.put('/user/:id', [checkToken, checkAdminRole], function(req, res) {
     })
 });
 
+// ===========================
+//  Delete user
+// ===========================
 app.delete('/user/:id', [checkToken, checkAdminRole], function(req, res) {
     let id = req.params.id;
 
-    // User.findByIdAndRemove(id, (err, userBorrado) => {
-    let cambiaEstado = {
+    let changeStatus = {
         status: false
     };
 
-    User.findByIdAndUpdate(id, cambiaEstado, { new: true }, (err, userDeleted) => {
+    User.findByIdAndUpdate(id, changeStatus, { new: true }, (err, userDeleted) => {
         if (err) {
             return res.status(400).json({
                 ok: false,

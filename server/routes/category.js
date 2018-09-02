@@ -7,7 +7,7 @@ let app = express();
 let Category = require('../models/category');
 
 // ============================
-// Show all categories
+// Show all categories ROLE: USER_ROLE, ADMIN_ROLE
 // ============================
 app.get('/category', checkToken, (req, res) => {
     Category.find({})
@@ -29,7 +29,7 @@ app.get('/category', checkToken, (req, res) => {
 });
 
 // ============================
-// Show category by id
+// Show category by id ROLE: USER_ROLE, ADMIN_ROLE
 // ============================
 app.get('/category/:id', checkToken, (req, res) => {
     let id = req.params.id;
@@ -58,9 +58,9 @@ app.get('/category/:id', checkToken, (req, res) => {
 });
 
 // ============================
-// Create category
+// Create category ROLE: ADMIN_ROLE
 // ============================
-app.post('/category', checkToken, (req, res) => {
+app.post('/category', [checkToken, checkAdminRole], (req, res) => {
     let body = req.body;
 
     let category = new Category({
@@ -91,9 +91,9 @@ app.post('/category', checkToken, (req, res) => {
 });
 
 // ============================
-// Update the category
+// Update the category ROLE: ADMIN_ROLE
 // ============================
-app.put('/category/:id', checkToken, (req, res) => {
+app.put('/category/:id', [checkToken, checkAdminRole], (req, res) => {
     let id = req.params.id;
     let body = req.body;
 
@@ -124,7 +124,7 @@ app.put('/category/:id', checkToken, (req, res) => {
 });
 
 // ============================
-// Delete category
+// Delete category ROLE: ADMIN_ROLE
 // ============================
 app.delete('/category/:id', [checkToken, checkAdminRole], (req, res) => {
     let id = req.params.id;
