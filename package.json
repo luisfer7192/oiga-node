@@ -1,0 +1,21 @@
+{
+    "name": "oiga-node-acunetiz",
+    "version": "1.0.0",
+    "description": "Api rest full in node to oiga technologies",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Luis Fernando Salazar Buitrago",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^3.0.0",
+        "body-parser": "^1.18.2",
+        "express": "^4.16.3",
+        "jsonwebtoken": "^8.3.0",
+        "mongoose": "^5.0.9",
+        "mongoose-unique-validator": "^2.0.0",
+        "underscore": "^1.9.1"
+    }
+}
