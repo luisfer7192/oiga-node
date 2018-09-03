@@ -2,10 +2,12 @@
 
 ## Installation
 
-```bash
+```
 $ npm install
 $ npm start
 ```
+
+To use unit test you can run `npm run test`
 
 Endpoints
 - user
@@ -13,6 +15,10 @@ Endpoints
 - products
 - orders
 
+
+Roles:
+- 'ADMIN_ROLE'
+- 'USER_ROLE'
 
 
 First you have to create the new users
@@ -59,7 +65,7 @@ Response:
 }
 ```
 
-
+You have to use the token in headers to access to the differents Endpoints
 
 If you want to have the list of the user, you have to be logged as a admin.
 `localhost:3000/user`
